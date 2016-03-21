@@ -10,7 +10,7 @@
         "psr-4": {
             "comradepashka\\tinymce\\": ""
         }
-    }
+    },
     "license": "Apache-2.0",
     "authors": [
         {
