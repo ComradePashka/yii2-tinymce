@@ -33,5 +33,5 @@ Usage
 -----
 
 ```
-$form->field($model, "body")->widget(TinyMce::className(), $opt)
+$form->field($model, "body")->widget(TinyMce::className(), $optionsArray)
 ```

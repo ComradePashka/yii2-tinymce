@@ -1,7 +1,16 @@
 {
     "name": "comradepashka/yii2-tinymce",
+    "version": "0.0.1",
     "description": "TinyMCE widget with inline mode support",
     "type": "yii2-extension",
+    "keywords": ["yii2","extension","tinymce"],
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Pavel Sokolov",
+            "email": "comradepashka@gmail.com"
+        }
+    ],
     "require": {
         "yiisoft/yii2": "^2.0",
         "tinymce/tinymce": "^4.3"
@@ -10,12 +19,5 @@
         "psr-4": {
             "comradepashka\\tinymce\\": ""
         }
-    },
-    "license": "Apache-2.0",
-    "authors": [
-        {
-            "name": "ComradePashka",
-            "email": "comradepashka@gmail.com"
-        }
-    ]
+    }
 }
