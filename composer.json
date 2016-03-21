@@ -1,0 +1,16 @@
+{
+    "name": "comradepashka/yii2-tinymce",
+    "description": "TinyMCE widget with inline mode support",
+    "type": "yii2-extension",
+    "require": {
+        "yiisoft/yii2": "^2.0",
+        "tinymce/tinymce": "^4.3"
+    },
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "ComradePashka",
+            "email": "comradepashka@gmail.com"
+        }
+    ]
+}
