@@ -1,11 +1,13 @@
 TinyMCE widget extension with inline mode support for Yii2 framework
-=================
-TinyMCE widget extension with inline mode support for Yii2 framework
+====================================================================
+There are about 20 extensions at [GitHub](http://github.com) which usually
+wrap TinyMCE in Html::activeTextarea() or Html::textarea() so we got
+htmlencoded content sent to the end user and moreover - TinyMCE wrapped in
+textarea tag which is completely inacceptable with for extremly usefull 
+inline mode behavior.
+ 
+This extension wrap TinyMCE inside div tag and made it inline by default.
 
-Under hardcoding.
-
-2do list
- -
 
 Installation
 ------------
@@ -29,3 +31,7 @@ to the require section of your `composer.json` file.
 
 Usage
 -----
+
+```
+$form->field($model, "body")->widget(TinyMce::className(), $opt)
+```
