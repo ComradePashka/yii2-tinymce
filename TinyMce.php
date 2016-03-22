@@ -18,16 +18,14 @@ class TinyMce extends InputWidget
      * @var array the options for the TinyMCE JS plugin.
      * Please refer to the TinyMCE JS plugin Web page for possible options.
      * @see http://www.tinymce.com/wiki.php/Configuration
+     * Options for container could be set through options attribute inherited
+     * from InputWidget
      */
     public $clientOptions = [];
-    /**
-     * ???
-     */
-    public $triggerSaveOnBeforeValidateForm = true;
 
     private static $defaultSettings = [
         'language'                  => 'en',
-        'inline'                    => 'true',
+        'inline'                    => true,
         'plugins'                   => [
             "advlist autolink link image imagetools lists charmap print preview hr anchor pagebreak spellchecker",
             "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
@@ -37,9 +35,8 @@ class TinyMce extends InputWidget
          bullist numlist outdent indent | link image imagetools | print preview media fullpage | forecolor backcolor emoticons",
         'toolbar_items_size'        => 'small',
         'image_advtab'              => true,
-        'relative_urls'             => false,
+        'relative_urls'             => true,
         'convert_urls'              => false,
-        'remove_script_host'        => true
     ];
 
     /**
@@ -47,8 +44,8 @@ class TinyMce extends InputWidget
      */
     public function run()
     {
+        $this->clientOptions = array_merge($this->clientOptions, self::$defaultSettings);
         if ($this->hasModel()) {
-//            echo Html::activeTextarea($this->model, $this->attribute, $this->options);
             $this->options['name'] = isset($this->options['name']) ? $this->options['name'] : Html::getInputName($this->model, $this->attribute);
             if (isset($this->options['value'])) {
                 $value = $this->options['value'];
@@ -60,10 +57,10 @@ class TinyMce extends InputWidget
                 $this->options['id'] = Html::getInputId($this->model, $this->attribute);
             }
         } else {
-//            echo Html::textarea($this->name, $this->value, $this->options);
             $options['name'] = $this->name;
             $value = $this->value;
         }
+        if (!isset($this->options['class'])) $this->options['class'] = 'row';
         echo Html::tag('div', $value, $this->options);
         $this->registerClientScript();
     }
@@ -79,26 +76,27 @@ class TinyMce extends InputWidget
         TinyMceAsset::register($view);
 
         $id = $this->options['id'];
-        if ($this->language == null) $this->language = yii::$app->language;
+        if ($this->language == null) {
+            $this->language = yii::$app->language;
+            if ($this->language == "en") $this->language = "en_GB";
+        }
         $this->clientOptions['language'] = $this->language;
         $this->clientOptions['document_base_url'] = yii::$app->urlManager->hostInfo . '/';
-        /**
-         * @2do find out some way to set up additional css via options
-         */
-        $this->clientOptions['content_css'] = "'/css/site.css," . yii::$app->assetManager->getPublishedUrl(yii::$app->assetManager->getBundle('yii\bootstrap\BootstrapAsset')->sourcePath) . "/css/bootstrap.css'";
+
+        $this->clientOptions['content_css'] = "/css/site.css," . yii::$app->assetManager->getPublishedUrl(yii::$app->assetManager->getBundle('yii\bootstrap\BootstrapAsset')->sourcePath) . "/css/bootstrap.css";
         $this->clientOptions['selector'] = "#$id";
 
         $langFile = "langs/{$this->language}.js";
         $langAssetBundle = TinyMceLangAsset::register($view);
         $langAssetBundle->js[] = $langFile;
         $this->clientOptions['language_url'] = $langAssetBundle->baseUrl . "/{$langFile}";
-
         $options = Json::encode($this->clientOptions);
 
         $js[] = "tinymce.init($options);";
-        if ($this->triggerSaveOnBeforeValidateForm) {
-            $js[] = "$('#{$id}').parents('form').on('beforeValidate', function() { tinymce.triggerSave(); });";
-        }
+        $js[] = "$('#{$id}').parents('form').on('beforeValidate', function() {
+            tinymce.triggerSave();
+            $('[name={$id}]').attr('name',$('#{$id}').attr('name'));
+        });";
         $view->registerJs(implode("\n", $js));
     }
 }

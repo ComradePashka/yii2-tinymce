@@ -1,6 +1,6 @@
 {
     "name": "comradepashka/yii2-tinymce",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "TinyMCE widget with inline mode support",
     "type": "yii2-extension",
     "keywords": ["yii2","extension","tinymce"],
@@ -13,6 +13,7 @@
     ],
     "require": {
         "yiisoft/yii2": "^2.0",
+        "yiisoft/yii2-bootstrap": "~2.0",
         "tinymce/tinymce": "^4.3"
     },
     "autoload": {
