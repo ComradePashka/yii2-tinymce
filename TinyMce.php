@@ -40,9 +40,11 @@ class TinyMce extends InputWidget
         'relative_urls'             => true,
         'convert_urls'              => false,
         'extended_valid_elements'   => "img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name]",
+        'image_advtab'              => true,
         'image_caption'             => true,
         'image_title'               => true,
-
+        'image_description'         => true,
+        'image_dimensions'          => true,
     ];
 
     /**
