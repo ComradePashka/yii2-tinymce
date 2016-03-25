@@ -14,6 +14,8 @@ class TinyMce extends InputWidget
      */
     public $language;
 
+    public $extraCss = "";
+
     /**
      * @var array the options for the TinyMCE JS plugin.
      * Please refer to the TinyMCE JS plugin Web page for possible options.
@@ -33,10 +35,14 @@ class TinyMce extends InputWidget
         ],
         'toolbar'                   => "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify |
          bullist numlist outdent indent | link image imagetools | print preview media fullpage | forecolor backcolor emoticons",
-        'toolbar_items_size'        => 'small',
+        'toolbar_items_size'        => "small",
         'image_advtab'              => true,
         'relative_urls'             => true,
         'convert_urls'              => false,
+        'extended_valid_elements'   => "img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name]",
+        'image_caption'             => true,
+        'image_title'               => true,
+
     ];
 
     /**
@@ -83,7 +89,8 @@ class TinyMce extends InputWidget
         $this->clientOptions['language'] = $this->language;
         $this->clientOptions['document_base_url'] = yii::$app->urlManager->hostInfo . '/';
 
-        $this->clientOptions['content_css'] = "/css/site.css," . yii::$app->assetManager->getPublishedUrl(yii::$app->assetManager->getBundle('yii\bootstrap\BootstrapAsset')->sourcePath) . "/css/bootstrap.css";
+        $this->clientOptions['content_css'] = $this->extraCss .
+            yii::$app->assetManager->getPublishedUrl(yii::$app->assetManager->getBundle('yii\bootstrap\BootstrapAsset')->sourcePath) . "/css/bootstrap.css";
         $this->clientOptions['selector'] = "#$id";
 
         $langFile = "langs/{$this->language}.js";
