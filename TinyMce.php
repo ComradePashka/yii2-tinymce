@@ -91,9 +91,8 @@ class TinyMce extends InputWidget
         $this->clientOptions['language'] = $this->language;
         $this->clientOptions['document_base_url'] = yii::$app->urlManager->hostInfo . '/';
 
-        yii::$app->assetManager->getBundle('yii\bootstrap\BootstrapAsset')->
-
-        $this->clientOptions['content_css'] = yii::$app->assetManager->getPublishedUrl(yii::$app->assetManager->getBundle('yii\bootstrap\BootstrapAsset')->sourcePath) . "/css/bootstrap.css" .
+        $this->clientOptions['content_css'] =
+            yii::$app->assetManager->getPublishedUrl(yii::$app->assetManager->getBundle('yii\bootstrap\BootstrapAsset')->sourcePath) . "/css/bootstrap.css," .
             $this->extraCss;
         $this->clientOptions['selector'] = "#$id";
 
