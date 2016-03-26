@@ -26,25 +26,25 @@ class TinyMce extends InputWidget
     public $clientOptions = [];
 
     private static $defaultSettings = [
-        'language'                  => 'en',
-        'inline'                    => true,
-        'plugins'                   => [
+        'language' => 'en',
+        'inline' => true,
+        'plugins' => [
             "advlist autolink link image imagetools lists charmap print preview hr anchor pagebreak spellchecker",
             "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
             "save table contextmenu directionality emoticons template paste textcolor"
         ],
-        'toolbar'                   => "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify |
+        'toolbar' => "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify |
          bullist numlist outdent indent | link image imagetools | print preview media fullpage | forecolor backcolor emoticons",
-        'toolbar_items_size'        => "small",
-        'image_advtab'              => true,
-        'relative_urls'             => true,
-        'convert_urls'              => false,
-        'extended_valid_elements'   => "img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name]",
-        'image_advtab'              => true,
-        'image_caption'             => true,
-        'image_title'               => true,
-        'image_description'         => true,
-        'image_dimensions'          => true,
+        'toolbar_items_size' => "small",
+        'image_advtab' => true,
+        'relative_urls' => true,
+        'convert_urls' => false,
+        'extended_valid_elements' => "img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name]",
+        'image_advtab' => true,
+        'image_caption' => true,
+        'image_title' => true,
+        'image_description' => true,
+        'image_dimensions' => true,
     ];
 
     /**
@@ -91,8 +91,10 @@ class TinyMce extends InputWidget
         $this->clientOptions['language'] = $this->language;
         $this->clientOptions['document_base_url'] = yii::$app->urlManager->hostInfo . '/';
 
-        $this->clientOptions['content_css'] = $this->extraCss .
-            yii::$app->assetManager->getPublishedUrl(yii::$app->assetManager->getBundle('yii\bootstrap\BootstrapAsset')->sourcePath) . "/css/bootstrap.css";
+        yii::$app->assetManager->getBundle('yii\bootstrap\BootstrapAsset')->
+
+        $this->clientOptions['content_css'] = yii::$app->assetManager->getPublishedUrl(yii::$app->assetManager->getBundle('yii\bootstrap\BootstrapAsset')->sourcePath) . "/css/bootstrap.css" .
+            $this->extraCss;
         $this->clientOptions['selector'] = "#$id";
 
         $langFile = "langs/{$this->language}.js";
