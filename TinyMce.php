@@ -31,10 +31,12 @@ class TinyMce extends InputWidget
         'plugins' => [
             "advlist autolink link image imagetools lists charmap print preview hr anchor pagebreak spellchecker",
             "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-            "save table contextmenu directionality emoticons template paste textcolor"
+            "save table contextmenu directionality emoticons template paste textcolor "
         ],
-        'toolbar' => "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify |
-         bullist numlist outdent indent | link image imagetools | print preview media fullpage | forecolor backcolor emoticons",
+        'toolbar' => [
+            "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify |",
+            "bullist numlist outdent indent | link image imagetools | print preview media fullpage | forecolor backcolor emoticons"
+        ],
         'toolbar_items_size' => "small",
         'image_advtab' => true,
         'relative_urls' => true,
@@ -52,7 +54,7 @@ class TinyMce extends InputWidget
      */
     public function run()
     {
-        $this->clientOptions = array_merge($this->clientOptions, self::$defaultSettings);
+        $this->clientOptions = array_merge_recursive(self::$defaultSettings, $this->clientOptions);
         if ($this->hasModel()) {
             $this->options['name'] = isset($this->options['name']) ? $this->options['name'] : Html::getInputName($this->model, $this->attribute);
             if (isset($this->options['value'])) {
