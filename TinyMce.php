@@ -34,19 +34,21 @@ class TinyMce extends InputWidget
             "save table contextmenu directionality emoticons template paste textcolor "
         ],
         'toolbar' => [
-            "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify |",
+            "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify |" .
             "bullist numlist outdent indent | link image imagetools | print preview media fullpage | forecolor backcolor emoticons"
         ],
+        'min-width' => 1200,
         'toolbar_items_size' => "small",
         'image_advtab' => true,
         'relative_urls' => true,
         'convert_urls' => false,
         'extended_valid_elements' => "img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name]",
-        'image_advtab' => true,
+        'image_advtab' => false,
         'image_caption' => true,
         'image_title' => true,
         'image_description' => true,
         'image_dimensions' => true,
+        'end_container_on_empty_block' => true,
     ];
 
     /**
@@ -70,7 +72,7 @@ class TinyMce extends InputWidget
             $options['name'] = $this->name;
             $value = $this->value;
         }
-        if (!isset($this->options['class'])) $this->options['class'] = 'row';
+        if (!isset($this->options['class'])) $this->options['class'] = 'tinymce';
         echo Html::tag('div', $value, $this->options);
         $this->registerClientScript();
     }
@@ -108,6 +110,7 @@ class TinyMce extends InputWidget
         $js[] = "$('#{$id}').parents('form').on('beforeValidate', function() {
             tinymce.triggerSave();
             $('[name={$id}]').attr('name',$('#{$id}').attr('name'));
+            return true;
         });";
         $view->registerJs(implode("\n", $js));
     }
