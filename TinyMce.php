@@ -58,6 +58,7 @@ class TinyMce extends InputWidget
     public function run()
     {
         $this->clientOptions = array_merge_recursive(self::$defaultSettings, $this->clientOptions);
+        $this->clientOptions['extended_valid_elements'] = implode($this->clientOptions['extended_valid_elements']);
         if ($this->hasModel()) {
             $this->options['name'] = isset($this->options['name']) ? $this->options['name'] : Html::getInputName($this->model, $this->attribute);
             if (isset($this->options['value'])) {
