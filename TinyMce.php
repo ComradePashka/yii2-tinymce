@@ -22,6 +22,9 @@ class TinyMce extends InputWidget
      * @see http://www.tinymce.com/wiki.php/Configuration
      * Options for container could be set through options attribute inherited
      * from InputWidget
+     *
+     * what 2 do?
+     * 'extended_valid_elements' => ["img[class|src|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name]"],
      */
     public $clientOptions = [];
 
@@ -42,7 +45,6 @@ class TinyMce extends InputWidget
         'image_advtab' => true,
         'relative_urls' => true,
         'convert_urls' => false,
-        'extended_valid_elements' => ["img[class|src|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name]"],
         'image_advtab' => false,
         'image_caption' => true,
         'image_title' => true,
