@@ -9,6 +9,7 @@ class TinyMceLangAsset extends AssetBundle
     public $sourcePath = '@comradepashka/tinymce/assets';
 
     public $depends = [
-        'comradepashka\tinymce\TinyMceAsset'
+        'comradepashka\tinymce\TinyMceAsset',
+        'yii\jui\JuiAsset'
     ];
 }
