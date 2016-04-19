@@ -24,7 +24,7 @@ class TinyMce extends InputWidget
      * from InputWidget
      *
      * what 2 do?
-     * 'extended_valid_elements' => ["img[class|src|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name]"],
+     * 'extended_valid_elements' => ["img[class|src|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name|usemap]"],
      */
     public $clientOptions = [];
 
