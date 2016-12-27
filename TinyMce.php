@@ -42,7 +42,6 @@ class TinyMce extends InputWidget
         ],
         'min-width' => 1200,
         'toolbar_items_size' => "small",
-        'image_advtab' => true,
         'relative_urls' => true,
         'convert_urls' => false,
         'image_advtab' => false,
