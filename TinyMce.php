@@ -116,7 +116,7 @@ class TinyMce extends InputWidget
         $options = Json::encode($this->clientOptions);
 
         $js[] = "tinymce.init($options);";
-        $js[] = "$('#{$id}').parents('form').on('beforeValidate', function() {
+        $js[] = "$('#{$id}').parents('form').on('beforeValidate beforeSubmit submit', function() {
             tinymce.triggerSave();
             $('[name={$id}]').attr('name',$('#{$id}').attr('name'));
             return true;
