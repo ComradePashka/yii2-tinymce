@@ -42,7 +42,6 @@ class TinyMce extends InputWidget
         ],
         'min-width' => 1200,
         'toolbar_items_size' => "small",
-        'image_advtab' => true,
         'relative_urls' => true,
         'convert_urls' => false,
         'image_advtab' => false,
@@ -52,6 +51,7 @@ class TinyMce extends InputWidget
         'image_dimensions' => true,
         'statusbar' => true,
         'end_container_on_empty_block' => true,
+        'extended_valid_elements' => [],
     ];
 
     /**
@@ -60,7 +60,12 @@ class TinyMce extends InputWidget
     public function run()
     {
         $this->clientOptions = array_merge_recursive(self::$defaultSettings, $this->clientOptions);
-        $this->clientOptions['extended_valid_elements'] = implode(',', $this->clientOptions['extended_valid_elements']);
+        if (is_array($this->clientOptions['extended_valid_elements'])) {
+            $this->clientOptions['extended_valid_elements'] = implode(',', $this->clientOptions['extended_valid_elements']);
+        } elseif (!strlen($this->clientOptions['extended_valid_elements'])) {
+            unset($this->clientOptions['extended_valid_elements']);
+        }
+
         if ($this->hasModel()) {
             $this->options['name'] = isset($this->options['name']) ? $this->options['name'] : Html::getInputName($this->model, $this->attribute);
             if (isset($this->options['value'])) {
@@ -111,7 +116,7 @@ class TinyMce extends InputWidget
         $options = Json::encode($this->clientOptions);
 
         $js[] = "tinymce.init($options);";
-        $js[] = "$('#{$id}').parents('form').on('beforeValidate', function() {
+        $js[] = "$('#{$id}').parents('form').on('beforeValidate beforeSubmit submit', function() {
             tinymce.triggerSave();
             $('[name={$id}]').attr('name',$('#{$id}').attr('name'));
             return true;
