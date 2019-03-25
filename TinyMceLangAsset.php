@@ -10,6 +10,6 @@ class TinyMceLangAsset extends AssetBundle
 
     public $depends = [
         'comradepashka\tinymce\TinyMceAsset',
-        'yii\jui\JuiAsset'
+//        'yii\jui\JuiAsset'
     ];
 }
