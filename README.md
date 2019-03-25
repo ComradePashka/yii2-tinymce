@@ -78,3 +78,4 @@ using configuration array.
 
 Styles will be used in addition to default bootstrap styles internally
 in editor.
+
