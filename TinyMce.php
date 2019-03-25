@@ -60,7 +60,7 @@ class TinyMce extends InputWidget
     public function run()
     {
         $this->clientOptions = array_merge_recursive(self::$defaultSettings, $this->clientOptions);
-        if (is_array($this->clientOptions['extended_valid_elements'])) {
+        if (is_array($this->clientOptions['extended_valid_elements']) and count($this->clientOptions['extended_valid_elements']) > 0) {
             $this->clientOptions['extended_valid_elements'] = implode(',', $this->clientOptions['extended_valid_elements']);
         } elseif (!strlen($this->clientOptions['extended_valid_elements'])) {
             unset($this->clientOptions['extended_valid_elements']);
