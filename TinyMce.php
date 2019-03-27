@@ -34,13 +34,14 @@ class TinyMce extends InputWidget
         'plugins' => [
             "advlist autolink link image imagetools lists charmap print preview hr anchor pagebreak spellchecker",
             "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-            "save table contextmenu directionality emoticons template paste textcolor "
+            "save table contextmenu directionality emoticons template paste textcolor autoresize "
         ],
         'toolbar' => [
             "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify |" .
             "bullist numlist outdent indent | link image imagetools | print preview media fullpage | forecolor backcolor emoticons"
         ],
         'min-width' => 1200,
+        'min-height' => 600,
         'toolbar_items_size' => "small",
         'relative_urls' => true,
         'convert_urls' => false,
@@ -59,7 +60,7 @@ class TinyMce extends InputWidget
      */
     public function run()
     {
-        $this->clientOptions = array_merge_recursive(self::$defaultSettings, $this->clientOptions);
+        $this->clientOptions = array_replace_recursive(self::$defaultSettings, $this->clientOptions);
         if (is_array($this->clientOptions['extended_valid_elements'])) {
             if (count($this->clientOptions['extended_valid_elements']) > 0) {
               $this->clientOptions['extended_valid_elements'] = implode(',', $this->clientOptions['extended_valid_elements']);
@@ -101,11 +102,15 @@ class TinyMce extends InputWidget
         TinyMceAsset::register($view);
 
         $id = $this->options['id'];
+
+        Yii::debug($this->language, 'DBG');
         if ($this->language == null) {
             $this->language = yii::$app->language;
         }
         if ($this->language == "en") $this->language = "en_GB";
         $this->clientOptions['language'] = $this->language;
+        Yii::debug($this->language, 'DBG');
+
         $this->clientOptions['document_base_url'] = yii::$app->urlManager->hostInfo . '/';
 
         $this->clientOptions['content_css'] =
