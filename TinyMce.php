@@ -103,8 +103,8 @@ class TinyMce extends InputWidget
         $id = $this->options['id'];
         if ($this->language == null) {
             $this->language = yii::$app->language;
-            if ($this->language == "en") $this->language = "en_GB";
         }
+        if ($this->language == "en") $this->language = "en_GB";
         $this->clientOptions['language'] = $this->language;
         $this->clientOptions['document_base_url'] = yii::$app->urlManager->hostInfo . '/';
 

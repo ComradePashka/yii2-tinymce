@@ -1,3 +1,4 @@
+
 tinymce.addI18n('en_US',{
 "Cut": "Cut",
 "Header 2": "Header 2",
